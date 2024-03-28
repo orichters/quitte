@@ -1,8 +1,8 @@
 Type: Package
 Package: quitte
 Title: Bits and pieces of code to use with quitte-style data frames
-Version: 0.3128.4
-Date: 2024-03-01
+Version: 0.3129.0
+Date: 2024-03-28
 Authors@R: c(
     person("Michaja", "Pehl", , "pehl@pik-potsdam.de", role = c("aut", "cre")),
     person("Nico", "Bauer", , "nicolasb@pik-potsdam.de", role = "aut"),

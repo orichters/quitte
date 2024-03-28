@@ -15,7 +15,8 @@ calc_addVariable(
   variable = variable,
   unit = unit,
   value = value,
-  overwrite = TRUE
+  overwrite = TRUE,
+  skip.fails = FALSE
 )
 
 calc_addVariable_(
@@ -27,7 +28,8 @@ calc_addVariable_(
   variable = "variable",
   unit = "unit",
   value = "value",
-  overwrite = TRUE
+  overwrite = TRUE,
+  skip.fails = FALSE
 )
 }
 \arguments{
@@ -63,6 +65,9 @@ column).}
 \item{overwrite}{If \code{TRUE} (the default), values are overwritten if they
 already exist. If \code{FALSE} values are discarded and not overwritten if they
 already exist}
+
+\item{skip.fails}{If \code{FALSE} (the default), fail if any right-hand-side variable is missing
+If \code{TRUE}, just skip that calculation.}
 
 \item{.dots}{Used to work around non-standard evaluation.  See details.}
 }
