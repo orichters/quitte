@@ -82,7 +82,7 @@
 #'
 #' @author Michaja Pehl
 #'
-#' @importFrom dplyr anti_join bind_rows filter mutate select
+#' @importFrom dplyr anti_join bind_rows filter mutate n select
 #' @importFrom glue glue
 #' @importFrom lazyeval f_eval interp
 #' @importFrom magrittr %>%
