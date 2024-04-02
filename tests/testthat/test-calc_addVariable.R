@@ -145,8 +145,24 @@ test_that(
 test_that(
   desc = 'completly missing variables yield an error',
   code = {
+    test_data <- tibble(variable = 'A', value = 1)
+
     expect_error(
-      object = tibble(variable = 'A', value = 1) %>%
-        calc_addVariable('C' = 'A + B'),
-      regexp = '1 variable is missing for the calculation:\n`B`')
+      object = calc_addVariable(test_data, 'C' = 'A + B'),
+      regexp = '1 variable is missing for the calculation of `C`:\n   `B`')
+
+    expect_error(
+      object = calc_addVariable(test_data, 'C' = 'A + B',
+                                skip.missing.rhs = FALSE),
+      regexp = '1 variable is missing for the calculation of `C`:\n   `B`')
+
+    expect_warning(
+      object = calc_addVariable(test_data, 'C' = 'A + B',
+                                skip.missing.rhs = TRUE),
+      regexp = '1 variable is missing for the calculation of `C`:\n   `B`')
+
+    expect_identical(
+      object = calc_addVariable(test_data, 'C' = 'A + B',
+                                skip.missing.rhs = 'silent'),
+      expected = test_data)
   })

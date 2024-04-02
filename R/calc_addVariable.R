@@ -54,8 +54,8 @@
 #' @param overwrite If `TRUE` (the default), values are overwritten if they
 #'   already exist. If `FALSE` values are discarded and not overwritten if they
 #'   already exist
-#' @param skip.fails If `FALSE` (the default), fail if any right-hand-side variable is missing
-#'   If `TRUE`, just skip that calculation.
+#' @param skip.missing.rhs If `FALSE` (the default), fail if any right-hand-side
+#'   variable is missing.  If `TRUE`, warn, and skip that calculation.
 #' @param .dots Used to work around non-standard evaluation.  See details.
 #'
 #' @return A data frame.
@@ -95,7 +95,8 @@
 calc_addVariable <- function(data, ..., units = NA, na.rm = TRUE,
                              completeMissing = FALSE, only.new = FALSE,
                              variable = variable,  unit = unit,
-                             value = value, overwrite = TRUE, skip.fails = FALSE) {
+                             value = value, overwrite = TRUE,
+                             skip.missing.rhs = FALSE) {
 
   .dots    <- list(...)
 
@@ -115,7 +116,7 @@ calc_addVariable <- function(data, ..., units = NA, na.rm = TRUE,
   value    <- deparse(substitute(value))
 
   calc_addVariable_(data, .dots, na.rm, completeMissing, only.new, variable,
-                    unit, value, overwrite, skip.fails)
+                    unit, value, overwrite, skip.missing.rhs)
 }
 
 #' @export
@@ -123,7 +124,8 @@ calc_addVariable <- function(data, ..., units = NA, na.rm = TRUE,
 calc_addVariable_ <- function(data, .dots, na.rm = TRUE,
                               completeMissing = FALSE, only.new = FALSE,
                               variable = 'variable', unit = 'unit',
-                              value = 'value', overwrite = TRUE, skip.fails = FALSE) {
+                              value = 'value', overwrite = TRUE,
+                              skip.missing.rhs = FALSE) {
   . <- NULL
 
   # guardians ----
@@ -183,13 +185,21 @@ calc_addVariable_ <- function(data, .dots, na.rm = TRUE,
     missing_rhs_variables <- setdiff(.dots[[i]]$variables,
                                      data_work[[variable]])
     if (0 < length(missing_rhs_variables)) {
-      if (isTRUE(skip.fails)) {
+      msg <- paste0(length(missing_rhs_variables), ' variable',
+                    ifelse(1 < length(missing_rhs_variables), 's are', ' is'),
+                    ' missing for the calculation of `', .dots[[i]]$name,
+                    '`:\n',
+                    paste(paste0('   `', missing_rhs_variables, '`'),
+                          collapse = '\n'))
+      if (isTRUE(skip.missing.rhs)) {
+        warning(msg)
         next
-      } else {
-        stop(length(missing_rhs_variables), ' variable',
-             ifelse(1 < length(missing_rhs_variables), 's are', ' is'),
-             ' missing for the calculation:\n',
-             paste(paste0('`', missing_rhs_variables, '`'), collapse = '\n'))
+      }
+      else if ('silent' == skip.missing.rhs) {
+        next
+      }
+      else {
+        stop(msg)
       }
     }
 
