@@ -47,7 +47,7 @@ In case of questions / problems please contact Michaja Pehl <michaja.pehl@pik-po
 
 To cite package **quitte** in publications use:
 
-Pehl M, Bauer N, Hilaire J, Levesque A, Luderer G, Schultes A, Dietrich J, Richters O (2024). _quitte: Bits and pieces of code to use with quitte-style data frames_. R package version 0.3129.0, <URL: https://github.com/pik-piam/quitte>.
+Pehl M, Bauer N, Hilaire J, Levesque A, Luderer G, Schultes A, Dietrich J, Richters O (2024). _quitte: Bits and pieces of code to use with quitte-style data frames_. R package version 0.3129.0, <https://github.com/pik-piam/quitte>.
 
 A BibTeX entry for LaTeX users is
 

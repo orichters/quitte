@@ -3,7 +3,7 @@ message: If you use this software, please cite it using the metadata from this f
 type: software
 title: 'quitte: Bits and pieces of code to use with quitte-style data frames'
 version: 0.3129.0
-date-released: '2024-03-28'
+date-released: '2024-04-02'
 abstract: A collection of functions for easily dealing with quitte-style data frames,
   doing multi-model comparisons and plots.
 authors:
